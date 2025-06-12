@@ -1,0 +1,39 @@
+import random
+
+words = ["lion", "tiger", "cow", "dog", "cat"]
+word = random.choice(words)
+display = ["_"] * len(word)
+guessed = []
+chances = 6
+
+print("Welcome to Hangman Game!")
+game_over = False
+
+while not game_over:
+    print("\nWord:", " ".join(display))
+    print("Guessed letters:", " ".join(guessed))
+    print("Chances left:", chances)
+
+    guess = input("Guess a letter: ").lower()
+
+    if guess in guessed:
+        print("You already guessed that letter!")
+        continue
+
+    guessed.append(guess)
+
+    if guess in word:
+        for i in range(len(word)):
+            if word[i] == guess:
+                display[i] = guess
+        print("Correct!")
+    else:
+        chances -= 1
+        print("Wrong guess!")
+
+    if "_" not in display:
+        print("\nYou won! The word was:", word)
+        game_over = True
+    elif chances == 0:
+        print("\nYou lost! The word was:", word)
+        game_over = True
